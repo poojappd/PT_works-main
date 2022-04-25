@@ -3,17 +3,41 @@ package com.company;
 import java.util.ArrayList;
 
 public class UserApp {
-    DisplayData display = DisplayData.instantiateOnce();
-    void login(){
+    private DisplayData display = DisplayData.instantiateOnce();
+    private UserProfile user;
 
+    private UserProfile login(){
+        String userName = "";
+        String passwprd = "";
+
+        user = display.createUser(name, location);
     }
     void userApp(){
-        //if new user:
+        //if existing user:
+        user = login();
+
+        //if new user
+        String name = "";
+        String location = "";
+
+        if(name.isEmpty()){
+            System.out.println("Name cannot be empty");
+        }
+        else if(location.isEmpty()){
+            System.out.println("Enter a valid location");
+        }
+        else
+            user = display.createUser(name, location);
+            
+        
+
+        if(!user.isEmpty)
+            HomePage(user);
 
 
     }
 
-    void HomePage(UserProfile user) {
+    private void HomePage(UserProfile user) {
         ArrayList<Object> cartItems;
         cartItems = display.showRestaurants(user);
 
