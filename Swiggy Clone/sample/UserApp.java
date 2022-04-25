@@ -5,8 +5,9 @@ import java.util.ArrayList;
 public class UserApp {
     DisplayData display = DisplayData.instantiateOnce();
 
-    void pageControl(){
+    void userApp(){
         //if new user:
+
 
     }
 

@@ -30,8 +30,9 @@ public class MainAdmin {
         if (!dd.LocationPresent(location)) {
             addLocation(location);
         }
-        restaurant = (new Restaurant(name, location));
-        Restaurants.add(restaurant);
+        restaurant = createRestaurant(name, location);
+        if(restaurant != null)
+            Restaurants.add(restaurant);
 
         return restaurant;
     }
@@ -40,7 +41,7 @@ public class MainAdmin {
         // Prompt the user for nearest locations and add the new location between them;
         Locations.add(location);
     }
-    boolean checkAdminPassword(){
+    private boolean checkAdminPassword(){
         String somePassword = "Admin@123";
         if (Arrays.equals(somePassword.toCharArray(), adminPassword))
             return true;
@@ -48,25 +49,25 @@ public class MainAdmin {
     }
 
 
-    private void AdminApp() {
+     void AdminApp() {
+        if(checkAdminPassword()) {
+            // get admin input in loop until exit
 
-        // get admin input in loop until exit
+            String choice = "c";
 
-        String choice = "c";
+            // get name, location as input and pass;
 
-        // get name, location as input and pass;
+            Restaurant r1 = createRestaurant("Coal BBQ", "Chennai");
+            // r2 = ad.createRestaurant("Domino's Pizza","Chengalpet");
 
-        Restaurant r1 = createRestaurant("Coal BBQ", "Chennai");
-        // r2 = ad.createRestaurant("Domino's Pizza","Chengalpet");
+            // adding food to menu until admin stops giving input
+            r1.addFoods("Tangdi Kebab", "Starters", 190, 25);
+            r1.addFoods("Chicken Tikka", "Starters", 225, 20);
+            r1.addFoods("Chocolate Truffle", "Dessert", 84, 10);
+            r1.addFoods("Mini Burger Combo", "Burger", 200, 25);
 
-        // adding food to menu until admin stops giving input
-        r1.addFoods("Tangdi Kebab", "Starters", 190, 25);
-        r1.addFoods("Chicken Tikka", "Starters", 225, 20);
-        r1.addFoods("Chocolate Truffle", "Dessert", 84, 10);
-        r1.addFoods("Mini Burger Combo", "Burger", 200, 25);
-
-        // r.addFoods(food, type, price, preparingTime);
-        dd.setRestaurantsLocations(this, new ArrayList(Restaurants), new HashSet<>(Locations));
-
+            // r.addFoods(food, type, price, preparingTime);
+            dd.setRestaurantsLocations(this, Restaurants, new HashSet<>(Locations));
+        }
     }
 }

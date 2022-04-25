@@ -13,7 +13,7 @@ public class Restaurant{
 
 
     //Constructor to create a new Restaurant object
-    private Restaurant(String name, String location){
+    Restaurant(String name, String location){
         RestaurantName = name;
         RestaurantLocation = location;
         RestaurantDetails  = new String[]{RestaurantName, RestaurantLocation};
@@ -22,11 +22,12 @@ public class Restaurant{
     //access Restaurant Constructor only if it's called from Admin
     Restaurant createRestaurant(String name, String location){
         String callerClassName = new Exception().getStackTrace()[1].getClassName();
-        if(callerClassName == "MainAdmin")
-            return new Restaurant(String name, String location);
+        if(callerClassName == "MainAdmin"){
+            return new Restaurant(name, location);
+        }
         return null;
     }
-
+        //Inner Class Food
         class Food{
              String name;
              String type;
@@ -34,7 +35,7 @@ public class Restaurant{
              int preparingTime;
 
             Food(String food, String type, int price, int preparingTime){
-                //food constructor for instantiatio
+                //food constructor
                 name = food;
                 this.type = type;
                 this.price = price;

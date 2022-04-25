@@ -9,20 +9,14 @@ package com.company;
 class MainApp {
 
     public static void main(String[] args) {
+
         MainAdmin ad = MainAdmin.instantiateOnce();
-
+        UserApp userEnd = new UserApp();
         String userType = "user";
-
-        UserProfile u1 = createUser("Pooja", "Chennai");
-        UserProfile u2 = createUser("Priya", "Chennai");
-        UserProfile u3 = createUser("Darshni", "Chennai");
-        // r1.prepareOrder(u1,"Tangdi kebab");
-
-        // if existing user, goto Login - both EndUser and admin
         if (userType.equals("admin"))
-            ad.checkAdminPassword();
+            ad.AdminApp();
         else
-            ;
+            userEnd.userApp();
 
     }
 }

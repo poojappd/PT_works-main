@@ -22,17 +22,21 @@ public class DisplayData {
     private ArrayList<Restaurant> allRestaurants;
     private HashSet<String> allLocations = new HashSet<String>();
 
-    private UserProfile createUser(String name, String location) {
-        // get all details from user
+    UserProfile createUser(String name, String location) {
+        String callerClassName = new Exception().getStackTrace()[1].getClassName();
 
+        if(callerClassName == "UserApp"){
 
-        String userid = UUID.randomUUID().toString();
-        EncryptDecrypt ed = new EncryptDecrypt();
-        String password = "pp"; // get from user
-        UserProfile newUser = new UserProfile(userid, name, location, ed.encrypt(password));
-        EndUsers.put(newUser.getUsername(), newUser);
+            // get all details from user
+            String userid = UUID.randomUUID().toString();
+            EncryptDecrypt ed = new EncryptDecrypt();
+            String password = "pp"; // get from user
+            UserProfile newUser = new UserProfile(userid, name, location, ed.encrypt(password));
+            EndUsers.put(newUser.getUsername(), newUser);
 
-        return newUser;
+            return newUser;
+        }
+
     }
 
     UserProfile userLogin() {
