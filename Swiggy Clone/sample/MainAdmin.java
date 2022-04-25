@@ -3,7 +3,7 @@ package com.company;
 import java.util.*;
 
 public class MainAdmin {
-//haiii
+
     private ArrayList<Restaurant> Restaurants = new ArrayList<>();
     static int restaurantId = 0; // for new restaurants
     private Restaurant restaurant;
