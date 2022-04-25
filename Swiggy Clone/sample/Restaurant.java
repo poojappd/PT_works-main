@@ -19,14 +19,6 @@ public class Restaurant{
         RestaurantDetails  = new String[]{RestaurantName, RestaurantLocation};
     }
 
-    //access Restaurant Constructor only if it's called from Admin
-    Restaurant createRestaurant(String name, String location){
-        String callerClassName = new Exception().getStackTrace()[1].getClassName();
-        if(callerClassName == "MainAdmin"){
-            return new Restaurant(name, location);
-        }
-        return null;
-    }
         //Inner Class Food
         class Food{
              String name;

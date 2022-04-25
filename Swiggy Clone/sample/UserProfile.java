@@ -27,7 +27,11 @@ public class UserProfile {
         return userLocation;
     }
 
-
+    boolean checkUserPassword(String somePassword){
+        if(somePassword.equals(password))
+            return true;
+        return false;
+    }
 
     // add new Orders to orderHistory - myOrders
     void addToOrders() {

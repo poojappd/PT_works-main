@@ -31,13 +31,11 @@ public class MainAdmin {
             addLocation(location);
         }
         restaurant = createRestaurant(name, location);
-        if(restaurant != null)
-            Restaurants.add(restaurant);
-
+        Restaurants.add(restaurant);
         return restaurant;
     }
 
-     void addLocation( String location) {
+     private void addLocation( String location) {
         // Prompt the user for nearest locations and add the new location between them;
         Locations.add(location);
     }
@@ -67,7 +65,10 @@ public class MainAdmin {
             r1.addFoods("Mini Burger Combo", "Burger", 200, 25);
 
             // r.addFoods(food, type, price, preparingTime);
-            dd.setRestaurantsLocations(this, Restaurants, new HashSet<>(Locations));
+            dd.setRestaurantsLocations(this, Restaurants, Locations);
+        }
+        else{
+            System.out.println("Invalid Admin Password !!!!!!");
         }
     }
 }

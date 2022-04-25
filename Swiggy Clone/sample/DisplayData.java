@@ -36,32 +36,34 @@ public class DisplayData {
 
             return newUser;
         }
-
+        return null;
     }
 
     UserProfile userLogin() {
-        UserApp userApp;
-        String username = "";
-        UserProfile tempUser = null;
-        String usernameCheck = "Pooja";
-        String passwordCheck = "pp"; // get existing pw from user
-        boolean validUser = false;
+        String callerClassName = new Exception().getStackTrace()[1].getClassName();
 
-        // loop through map and get user object
-        tempUser = EndUsers.get(usernameCheck);
+        if(callerClassName == "UserApp") {
+            UserApp userApp;
+            String username = "";
+            UserProfile tempUser = null;
+            String usernameCheck = "Pooja";
+            String passwordCheck = "pp"; // get existing pw from user
+            boolean validUser = false;
 
-        if (tempUser != null) {
-            if (Arrays.equals(passwordCheck.toCharArray(), ed.decrypt(tempUser.getEncryptedPassword()))) {
-                dr.setRestaurantsLocations(Restaurants, Locations);
-                validUser = true;
-s
+            // loop through map and get user object
+            tempUser = EndUsers.get(usernameCheck);
+
+            if (tempUser != null) {
+                if (tempUser.checkUserPassword(passwordCheck)) {
+                    validUser = true;
+
+                }
             }
-        }s
-        if (validUser) {
-            userApp = new UserApp();
-            userApp.HomePage(tempUser);
+            if (validUser) {
+                userApp = new UserApp();
+                userApp.HomePage(tempUser);
+            }
         }
-
     }
     boolean LocationPresent(String location) {
         // Check if the current location is in the Locations HashSet;

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class UserApp {
     DisplayData display = DisplayData.instantiateOnce();
+    void login(){
 
+    }
     void userApp(){
         //if new user:
 
