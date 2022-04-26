@@ -1,26 +1,29 @@
 package com.company;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RestaurantBill {
     private String userName;
     private String userLocation;
     private String restaurantName;
     private String restaurantLocation;
-    private String food;
-    private int quantity;
+    private HashMap<String, Integer> Items;
 
     RestaurantBill(){}
 
-    RestaurantBill (ArrayList<Object> cartItems){
-        Restaurant chosenRestaurant = (Restaurant) cartItems.get(0);
-        UserProfile currentUser = (UserProfile) cartItems.get(1);
+    RestaurantBill (String restaurantName, String restaurantLocation,
+                    String userName, String userLocation, HashMap<String, Integer> FoodItems){
+        int orderId;
+        this.restaurantName = restaurantName;
+        this.restaurantLocation = restaurantLocation;
+        this.userName = userName;
+        this.userLocation = userLocation;
+        this.Items = FoodItems;
 
-        restaurantName = chosenRestaurant.getRestaurantName();
-        restaurantLocation = chosenRestaurant.getRestaurantLocation();
-        userName = currentUser.getUsername();
-        userLocation = currentUser.getUserLocation();
-
+    }
+    void showBill(){
+        //print all attributes with price details;
+        calculateBill();
     }
 
     int calculateBill(){

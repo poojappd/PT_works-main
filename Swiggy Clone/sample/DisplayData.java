@@ -9,7 +9,7 @@ public class DisplayData {
 
 
 
-    // Single Object for MainAdmin
+    // Single Object for Display Data
     static DisplayData instantiateOnce() {
         if (one_Retriever == null)
             one_Retriever = new DisplayData();
@@ -20,12 +20,12 @@ public class DisplayData {
     // All restaurants for display
     private Map<String, UserProfile> EndUsers = new HashMap<>();
     private ArrayList<Restaurant> allRestaurants;
-    private HashSet<String> allLocations = new HashSet<String>();
+    private ArrayList<String> allLocations = new ArrayList<>();
 
     UserProfile createUser(String name, String location) {
         String callerClassName = new Exception().getStackTrace()[1].getClassName();
-
-        if(callerClassName == "UserApp"){
+        //System.out.println(callerClassName);
+        if(callerClassName == "com.company.UserApp"){
 
             // get all details from user
             String userid = UUID.randomUUID().toString();
@@ -39,74 +39,82 @@ public class DisplayData {
         return null;
     }
 
-    UserProfile userLogin() {
+    UserProfile userLogin(String usernameCheck, String passwordCheck) {
         String callerClassName = new Exception().getStackTrace()[1].getClassName();
 
         if(callerClassName == "UserApp") {
-            UserApp userApp;
-            String username = "";
             UserProfile tempUser = null;
-            String usernameCheck = "Pooja";
-            String passwordCheck = "pp"; // get existing pw from user
-            boolean validUser = false;
 
             // loop through map and get user object
             tempUser = EndUsers.get(usernameCheck);
 
             if (tempUser != null) {
                 if (tempUser.checkUserPassword(passwordCheck)) {
-                    validUser = true;
-
+                    return tempUser;
                 }
             }
-            if (validUser) {
-                userApp = new UserApp();
-                userApp.HomePage(tempUser);
-            }
+
+            System.out.println("Invalid username or password");
         }
-    }
+            return null;
+        }
     boolean LocationPresent(String location) {
         // Check if the current location is in the Locations HashSet;
+        if(allLocations.isEmpty())
+            return true;
+
         return allLocations.contains(location);
 
     }
+    void addLocation(String location){
+        allLocations.add(location);
+    }
 
-    void setRestaurantsLocations(MainAdmin access, ArrayList<Restaurant> restaurants, HashSet<String> Locations) {
+    void setRestaurants(MainAdmin access, ArrayList<Restaurant> restaurants) {
         allRestaurants = restaurants;
-        allLocations = Locations;
+        System.out.println(allRestaurants);
 
     }
 
-    ArrayList<Object> showRestaurants(UserProfile user) {
-        Map<Restaurant.Food, Integer> itemsSelected = new HashMap<>();
-        ArrayList<Object> cartItems = new ArrayList<>();
-        Restaurant.Food food;
+    int showRestaurants() {
         Restaurant currentRestaurant;
-        int quantity;
-        int restaurantId = 0;
-        int foodId = 0;
+        int restaurantId = 0; //entered by user after showRestaurant
 
-        // Print all restaurant details - name, location
+        // Print all restaurant details - name, location with id
+        for (int i = 0; i < allRestaurants.size(); i++) {
+
+            Restaurant displayCurrentRestaurant = allRestaurants.get(i);
+            System.out.println(displayCurrentRestaurant.getRestaurantName()
+                    + " " + displayCurrentRestaurant.getRestaurantLocation());
+        }
         // if user picks a restaurant:
         currentRestaurant = allRestaurants.get(restaurantId);
         currentRestaurant.showMenu();
-
-        // if user selects food along with quantity
-        // added to Map in loop
-        food = currentRestaurant.getFood(foodId);
-        quantity = -1;
-        itemsSelected.put(food, quantity);
-
-        // after user selected foods with quantity, return the food list
-        cartItems.add(currentRestaurant);
-        cartItems.add(user);
-        cartItems.add(itemsSelected);
-
-        return cartItems;
+        return restaurantId;
     }
+    Restaurant.Food fetchFoodItem(int restaurantId, int foodId){
 
-    static void getUsers() {
+
+        Restaurant currentRestaurant = allRestaurants.get(restaurantId);
+        Restaurant.Food food;
+        return currentRestaurant.getFood(foodId);
+
 
     }
+    String getRestaurantName(int restaurantId){
+        return allRestaurants.get(restaurantId).getRestaurantName();
+    }
+    String getRestaurantLocation(int restaurantId){
+        return allRestaurants.get(restaurantId).getRestaurantLocation();
+    }
+
+    //to contact restaurant for order
+    Restaurant getRestaurant(int restaurantId){
+        //called only by userApp
+        return allRestaurants.get(restaurantId);
+    }
+
+
+
 
 }

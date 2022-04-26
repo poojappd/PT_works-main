@@ -33,11 +33,22 @@ public class Restaurant{
                 this.price = price;
                 this.preparingTime = preparingTime;
             }
+            Food(Food f){
+                //food constructor for Food copy
+                this.name = f.name;
+                this.type = f.type;
+                this.price = f.price;
+                this.preparingTime = f.preparingTime;
+            }
+
 
         }
 
     //Add new foods to menu ArrayList
     void addFoods(String food, String type, int price, int preparingTime){
+        String callerClassName = new Exception().getStackTrace()[1].getClassName();
+
+        if(callerClassName == "com.company.MainAdmin")
         menu.add(new Food(food, type, price, preparingTime));
     }
 
@@ -46,16 +57,19 @@ public class Restaurant{
     }
 
     Food getFood(int foodId){
+        //if called only from displayData or UserApp
         return menu.get(foodId);
     }
 
     String getRestaurantName(){
         return RestaurantName;
     }
-    String getRestaurantLocation(){return RestaurantLocation;}
+    String getRestaurantLocation(){
+        return RestaurantLocation;
+    }
 
     void prepareOrder(UserProfile user, String food){//send RestaurantBill
-        // OrderHistory.add(restaurantBill.calculateBill(food,this, user));
+        RestaurantBill newBill = new RestaurantBill();
     };
 
     void cancelOrder(UserProfile user, Food f){};// remove orderHistory/ set status "cancelled"

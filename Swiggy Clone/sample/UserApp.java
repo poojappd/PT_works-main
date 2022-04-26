@@ -1,58 +1,109 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserApp {
     private DisplayData display = DisplayData.instantiateOnce();
     private UserProfile user;
+    //Restaurant selectedRestaurant;
 
     private UserProfile login(){
-        String userName = "";
-        String passwprd = "";
+        String userName = "Pooja";
+        String password = "pp";
 
-        user = display.createUser(name, location);
+        return display.userLogin(userName, password);
     }
     void userApp(){
         //if existing user:
         user = login();
+        if(user==null)
+        {//if new user
+            String name = "Pooja";
+            String location = "chennai";
 
-        //if new user
-        String name = "";
-        String location = "";
+            if (name.isEmpty()) {
+                System.out.println("Name cannot be empty");
+            } else if (location.isEmpty()) {
+                System.out.println("Enter a valid location");
+            } else
+                user = display.createUser(name, location);
+            System.out.println(user);
 
-        if(name.isEmpty()){
-            System.out.println("Name cannot be empty");
         }
-        else if(location.isEmpty()){
-            System.out.println("Enter a valid location");
-        }
-        else
-            user = display.createUser(name, location);
-            
-        
-
-        if(!user.isEmpty)
-            HomePage(user);
+        if(user != null)
+            HomePage();
 
 
     }
 
-    private void HomePage(UserProfile user) {
-        ArrayList<Object> cartItems;
-        cartItems = display.showRestaurants(user);
+    private void HomePage() {
+        Cart cartItems;
+        int RestaurantId = display.showRestaurants();
 
-        if (!cartItems.isEmpty()) {
-            user.addToCart(cartItems);
-            // if user selects book order
-            BookingPage(user);
-            // else if user empties cart:
-            user.removeFromCart();
+        if (RestaurantId!=-1) {
+            cartItems = TakeOrder(RestaurantId);
+            if (cartItems != null) {
+                user.addToCart(cartItems);
+                // if user want to view cart
+                viewCart(cartItems);
+                // else if user empties cart:
+                //user.removeFromCart();
 
+            }
         }
     }
+    private Cart TakeOrder(int restaurantId){
 
-    void BookingPage(UserProfile user) {
+        HashMap<String, Integer> itemsSelected = new HashMap<>();
 
+        // if user selects food along with quantity
+        // added to array in loop
+
+        //loop begins
+        int foodId = 0; //get from user
+        int quantity = -1;
+
+        //storing the copy of food object and its quantity in Object array
+        Restaurant.Food food= display.fetchFoodItem(restaurantId, foodId);
+        //Object[] tempArr= {food, quantity};
+
+        //storing the food name and object array in hashmap
+        itemsSelected.put(food.name, quantity);
+        //loop ends
+
+        // after user selected foods with quantity, return the food list
+        Cart userCart = new Cart(itemsSelected,
+                display.getRestaurantName(restaurantId),
+                display.getRestaurantLocation(restaurantId));
+
+        return userCart;
+    }
+    private float calculateTotalPrice(Cart cart){
+        float price = 0;
+        //iterate through food and its quantity and return price
+        return price;
+    }
+    private void viewCart(Cart cartItems){
+        //if user make changes to cart
+        //show cart items with price
+        calculateTotalPrice(cartItems);
+
+        //if user wants to make an order with the cartItems,
+        BookingPage(cartItems);
+
+    }
+    private void BookingPage(Cart cartItems) {
+
+        //if user confirms payment mode
+        String restaurantName = cartItems.getCartRestaurant();
+        String restaurantLocation= cartItems.getRestaurantLocation();
+        String username = user.getUsername();
+        String userLocation = user.getUserLocation();
+
+        UserBill bill = new UserBill(restaurantName, restaurantLocation,
+                username, userLocation, cartItems);
     }
 
 }

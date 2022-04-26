@@ -11,7 +11,7 @@ public class MainAdmin {
     private EncryptDecrypt ed = new EncryptDecrypt();
     private DisplayData dd = DisplayData.instantiateOnce();
     private char[] adminPassword = ed.encrypt("Admin@123");
-    private HashSet<String> Locations = new HashSet<String>();
+
     // Scanner sc = new Scanner(System.in);
 
     // to create a singleton class for Admin
@@ -28,17 +28,14 @@ public class MainAdmin {
 
     private Restaurant createRestaurant(String name, String location) {
         if (!dd.LocationPresent(location)) {
-            addLocation(location);
+            dd.addLocation(location);
         }
-        restaurant = createRestaurant(name, location);
+        restaurant = new Restaurant(name, location);
         Restaurants.add(restaurant);
         return restaurant;
     }
 
-     private void addLocation( String location) {
-        // Prompt the user for nearest locations and add the new location between them;
-        Locations.add(location);
-    }
+
     private boolean checkAdminPassword(){
         String somePassword = "Admin@123";
         if (Arrays.equals(somePassword.toCharArray(), adminPassword))
@@ -65,7 +62,7 @@ public class MainAdmin {
             r1.addFoods("Mini Burger Combo", "Burger", 200, 25);
 
             // r.addFoods(food, type, price, preparingTime);
-            dd.setRestaurantsLocations(this, Restaurants, Locations);
+            dd.setRestaurants(this, Restaurants);
         }
         else{
             System.out.println("Invalid Admin Password !!!!!!");

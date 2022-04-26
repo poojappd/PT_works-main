@@ -9,7 +9,7 @@ public class UserProfile {
     private char[] password;
     private String userLocation;
     private ArrayList<UserBill> myOrders;
-    private ArrayList<Object> myCart;
+    private Cart myCart;
 
     UserProfile(String id, String name, String location, char[] password) {
         userid = id;
@@ -35,14 +35,31 @@ public class UserProfile {
 
     // add new Orders to orderHistory - myOrders
     void addToOrders() {
+
     }
 
-    void addToCart(ArrayList<Object> cart) {
-        myCart = cart;
+    void addToCart(Cart cart) {
+        String callerClassName = new Exception().getStackTrace()[1].getClassName();
+
+        if(callerClassName == "com.company.UserApp") {
+            myCart = cart;
+        }
+    }
+    Cart modifyCart(){
+        String callerClassName = new Exception().getStackTrace()[1].getClassName();
+
+        if(callerClassName == "com.company.UserApp") {
+            return myCart;
+        }
+        return null;
     }
 
     void removeFromCart() {
-        myCart.clear();
+        String callerClassName = new Exception().getStackTrace()[1].getClassName();
+
+        if(callerClassName == "com.company.UserApp") {
+            myCart.emptyCart();
+        }
     }
 
 }

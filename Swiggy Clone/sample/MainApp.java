@@ -13,9 +13,9 @@ class MainApp {
         MainAdmin ad = MainAdmin.instantiateOnce();
         UserApp userEnd = new UserApp();
         String userType = "user";
-        if (userType.equals("admin"))
+        //if (userType.equals("admin"))
             ad.AdminApp();
-        else
+        //else
             userEnd.userApp();
 
     }
