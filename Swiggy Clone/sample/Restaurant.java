@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Restaurant{
@@ -68,8 +69,9 @@ public class Restaurant{
         return RestaurantLocation;
     }
 
-    void prepareOrder(UserProfile user, String food){//send RestaurantBill
+    void prepareOrder(UserProfile user, HashMap<String, Integer> Foods){//send RestaurantBill
         RestaurantBill newBill = new RestaurantBill();
+
     };
 
     void cancelOrder(UserProfile user, Food f){};// remove orderHistory/ set status "cancelled"

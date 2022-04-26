@@ -7,14 +7,11 @@ public class DisplayData {
     // to create a singleton class for Admin
     private static DisplayData one_Retriever = null;
 
-
-
     // Single Object for Display Data
     static DisplayData instantiateOnce() {
         if (one_Retriever == null)
             one_Retriever = new DisplayData();
         return one_Retriever;
-
     }
 
     // All restaurants for display
@@ -40,9 +37,7 @@ public class DisplayData {
     }
 
     UserProfile userLogin(String usernameCheck, String passwordCheck) {
-        String callerClassName = new Exception().getStackTrace()[1].getClassName();
 
-        if(callerClassName == "UserApp") {
             UserProfile tempUser = null;
 
             // loop through map and get user object
@@ -55,7 +50,7 @@ public class DisplayData {
             }
 
             System.out.println("Invalid username or password");
-        }
+
             return null;
         }
     boolean LocationPresent(String location) {
@@ -72,7 +67,6 @@ public class DisplayData {
 
     void setRestaurants(MainAdmin access, ArrayList<Restaurant> restaurants) {
         allRestaurants = restaurants;
-        System.out.println(allRestaurants);
 
     }
 
@@ -92,12 +86,12 @@ public class DisplayData {
         currentRestaurant.showMenu();
         return restaurantId;
     }
-    Restaurant.Food fetchFoodItem(int restaurantId, int foodId){
+    String fetchFoodItem(int restaurantId, int foodId){
 
 
         Restaurant currentRestaurant = allRestaurants.get(restaurantId);
         Restaurant.Food food;
-        return currentRestaurant.getFood(foodId);
+        return currentRestaurant.getFood(foodId).name;
 
 
     }

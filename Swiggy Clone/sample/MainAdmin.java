@@ -7,7 +7,6 @@ public class MainAdmin {
     private ArrayList<Restaurant> Restaurants = new ArrayList<>();
     static int restaurantId = 0; // for new restaurants
     private Restaurant restaurant;
-    private UserProfile user;
     private EncryptDecrypt ed = new EncryptDecrypt();
     private DisplayData dd = DisplayData.instantiateOnce();
     private char[] adminPassword = ed.encrypt("Admin@123");
@@ -23,7 +22,6 @@ public class MainAdmin {
             one_Admin = new MainAdmin();
         return one_Admin;
     }
-
 
 
     private Restaurant createRestaurant(String name, String location) {
@@ -48,7 +46,7 @@ public class MainAdmin {
         if(checkAdminPassword()) {
             // get admin input in loop until exit
 
-            String choice = "c";
+            String adminCall = "";
 
             // get name, location as input and pass;
 

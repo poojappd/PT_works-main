@@ -8,6 +8,7 @@ public class UserApp {
     private DisplayData display = DisplayData.instantiateOnce();
     private UserProfile user;
     //Restaurant selectedRestaurant;
+    int restaurantId;
 
     private UserProfile login(){
         String userName = "Pooja";
@@ -66,18 +67,19 @@ public class UserApp {
         int quantity = -1;
 
         //storing the copy of food object and its quantity in Object array
-        Restaurant.Food food= display.fetchFoodItem(restaurantId, foodId);
+        String foodName= display.fetchFoodItem(restaurantId, foodId);
         //Object[] tempArr= {food, quantity};
 
         //storing the food name and object array in hashmap
-        itemsSelected.put(food.name, quantity);
+        itemsSelected.put(foodName, quantity);
         //loop ends
+
 
         // after user selected foods with quantity, return the food list
         Cart userCart = new Cart(itemsSelected,
                 display.getRestaurantName(restaurantId),
                 display.getRestaurantLocation(restaurantId));
-
+        this.restaurantId = restaurantId;
         return userCart;
     }
     private float calculateTotalPrice(Cart cart){
@@ -87,7 +89,9 @@ public class UserApp {
     }
     private void viewCart(Cart cartItems){
         //if user make changes to cart
-        //show cart items with price
+        user.modifyCart();
+
+        ////show cart items with price
         calculateTotalPrice(cartItems);
 
         //if user wants to make an order with the cartItems,
@@ -104,6 +108,10 @@ public class UserApp {
 
         UserBill bill = new UserBill(restaurantName, restaurantLocation,
                 username, userLocation, cartItems);
+
+        Restaurant res = display.getRestaurant(restaurantId);
+        res.prepareOrder(user, cartItems.getCartItems());
+
     }
 
 }
