@@ -11,6 +11,7 @@ public class UserBill extends RestaurantBill {
 
     }
     int calculateDeliveryCharge(){
-        return 2;
+        this.deliveryCharge = 2;
+        return deliveryCharge;
     }
 }

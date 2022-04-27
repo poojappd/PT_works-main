@@ -12,5 +12,4 @@ public class EncryptDecrypt {
         //return temp;
         return s;
         }
-
 }

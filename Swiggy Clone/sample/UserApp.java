@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserApp {
+
     private DisplayData display = DisplayData.instantiateOnce();
     private UserProfile user;
+
     //Restaurant selectedRestaurant;
     int restaurantId;
 
@@ -16,10 +18,11 @@ public class UserApp {
 
         return display.userLogin(userName, password);
     }
+
     void userApp(){
         //if existing user:
         user = login();
-        if(user==null)
+        if(user == null)
         {//if new user
             String name = "Pooja";
             String location = "chennai";
@@ -35,8 +38,6 @@ public class UserApp {
         }
         if(user != null)
             HomePage();
-
-
     }
 
     private void HomePage() {
@@ -55,6 +56,7 @@ public class UserApp {
             }
         }
     }
+
     private Cart TakeOrder(int restaurantId){
 
         HashMap<String, Integer> itemsSelected = new HashMap<>();
@@ -82,12 +84,16 @@ public class UserApp {
         this.restaurantId = restaurantId;
         return userCart;
     }
+
     private float calculateTotalPrice(Cart cart){
         float price = 0;
         //iterate through food and its quantity and return price
         return price;
     }
+
     private void viewCart(Cart cartItems){
+        //display cart items
+
         //if user make changes to cart
         user.modifyCart();
 
@@ -96,8 +102,8 @@ public class UserApp {
 
         //if user wants to make an order with the cartItems,
         BookingPage(cartItems);
-
     }
+
     private void BookingPage(Cart cartItems) {
 
         //if user confirms payment mode
@@ -111,7 +117,6 @@ public class UserApp {
 
         Restaurant res = display.getRestaurant(restaurantId);
         res.prepareOrder(user, cartItems.getCartItems());
-
     }
 
 }

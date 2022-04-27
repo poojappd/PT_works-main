@@ -3,14 +3,18 @@ package com.company;
 import java.util.*;
 
 public class DisplayData {
-//changed
+
+
     // to create a singleton class for Admin
     private static DisplayData one_Retriever = null;
+    MainAdmin adminAccess = MainAdmin.instantiateOnce();
 
     // Single Object for Display Data
     static DisplayData instantiateOnce() {
-        if (one_Retriever == null)
+        if (one_Retriever == null) {
             one_Retriever = new DisplayData();
+
+        }
         return one_Retriever;
     }
 
@@ -18,6 +22,7 @@ public class DisplayData {
     private Map<String, UserProfile> EndUsers = new HashMap<>();
     private ArrayList<Restaurant> allRestaurants;
     private ArrayList<String> allLocations = new ArrayList<>();
+    private ArrayList<DeliveryPartner> DeliveryPartners;
 
     UserProfile createUser(String name, String location) {
         String callerClassName = new Exception().getStackTrace()[1].getClassName();
@@ -28,6 +33,8 @@ public class DisplayData {
             String userid = UUID.randomUUID().toString();
             EncryptDecrypt ed = new EncryptDecrypt();
             String password = "pp"; // get from user
+            //pincode should be of length 6 only...
+
             UserProfile newUser = new UserProfile(userid, name, location, ed.encrypt(password));
             EndUsers.put(newUser.getUsername(), newUser);
 
@@ -53,6 +60,8 @@ public class DisplayData {
 
             return null;
         }
+
+
     boolean LocationPresent(String location) {
         // Check if the current location is in the Locations HashSet;
         if(allLocations.isEmpty())
@@ -60,16 +69,18 @@ public class DisplayData {
 
         return allLocations.contains(location);
 
+
     }
     void addLocation(String location){
         allLocations.add(location);
     }
 
-    void setRestaurants(MainAdmin access, ArrayList<Restaurant> restaurants) {
+    void fetchData(MainAdmin access, ArrayList<Restaurant> restaurants,
+                   ArrayList<DeliveryPartner> DeliveryPartners) {
         allRestaurants = restaurants;
+        this.DeliveryPartners = DeliveryPartners;
 
     }
-
     int showRestaurants() {
         Restaurant currentRestaurant;
         int restaurantId = 0; //entered by user after showRestaurant
@@ -83,6 +94,7 @@ public class DisplayData {
         }
         // if user picks a restaurant:
         currentRestaurant = allRestaurants.get(restaurantId);
+        //if currentRestaurant is not null
         currentRestaurant.showMenu();
         return restaurantId;
     }
@@ -108,7 +120,9 @@ public class DisplayData {
         return allRestaurants.get(restaurantId);
     }
 
-
+    void contactAdmin(UserProfile user, String restaurantName, String restaurantLocation){
+        adminAccess.assignDeliveryPartner(user, restaurantName, restaurantLocation);
+    }
 
 
 }

@@ -26,7 +26,7 @@ public class RestaurantBill {
         calculateBill();
     }
 
-    int calculateBill(){
+    private int calculateBill(){
         //return amount of bill
         return 1;
     }

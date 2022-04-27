@@ -7,7 +7,6 @@ import java.util.HashMap;
 public class Restaurant{
     private String RestaurantName;
     private String RestaurantLocation;
-    private String[] RestaurantDetails;
     private ArrayList<Food> menu = new ArrayList<>();
     private ArrayList<RestaurantBill> OrderHistory;
     private RestaurantBill restaurantBill;
@@ -17,7 +16,6 @@ public class Restaurant{
     Restaurant(String name, String location){
         RestaurantName = name;
         RestaurantLocation = location;
-        RestaurantDetails  = new String[]{RestaurantName, RestaurantLocation};
     }
 
         //Inner Class Food
@@ -50,7 +48,7 @@ public class Restaurant{
         String callerClassName = new Exception().getStackTrace()[1].getClassName();
 
         if(callerClassName == "com.company.MainAdmin")
-        menu.add(new Food(food, type, price, preparingTime));
+            menu.add(new Food(food, type, price, preparingTime));
     }
 
     //Displays Food objects as Menu
@@ -72,8 +70,11 @@ public class Restaurant{
     void prepareOrder(UserProfile user, HashMap<String, Integer> Foods){//send RestaurantBill
         RestaurantBill newBill = new RestaurantBill();
 
+        OrderHistory.add(newBill);
+
     };
 
-    void cancelOrder(UserProfile user, Food f){};// remove orderHistory/ set status "cancelled"
+    void cancelOrder(UserProfile user, Food f){};
+    // remove orderHistory/ set status "cancelled"
 
 }

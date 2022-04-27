@@ -8,6 +8,7 @@ public class UserProfile {
     private String username;
     private char[] password;
     private String userLocation;
+    private char[] pincode;
     private ArrayList<UserBill> myOrders;
     private Cart myCart;
 
