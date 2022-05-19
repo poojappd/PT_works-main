@@ -108,7 +108,7 @@ class Location{
 class Vehicle{
     private String vehicleId;
     private String vehicleName;
-    VehicleType vehicleType;
+    private VehicleType vehicleType;
     private int mileage;
     private int numberOfWheels;
     private String ownerName;
